@@ -37,7 +37,7 @@ class Api:
     
     def _get_devices(self,access_token=None):
       if not self._check_token_validity(access_token):
-          print('Token invalid requesting authentication!!')
+          ## Token invalid requesting authentication
           access_token = self._authenticate()
           
 

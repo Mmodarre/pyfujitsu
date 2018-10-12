@@ -42,7 +42,7 @@ class splitAC:
     ## To Turn on the device get the last operation mode using property history method
     ## Find the last not 'OFF'/'0' O.M. 
     ## Turn on by setting O.M. to the last O.M
-    def TurnOn(self):
+    def turnOn(self):
         datapoints = self._get_device_property_history(self.operation_mode['key'])
         ## Get the latest setting before turn off
         for datapoint in reversed(datapoints):

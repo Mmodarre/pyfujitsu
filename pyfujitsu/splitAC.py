@@ -18,8 +18,8 @@ class splitAC:
         self.economy_mode = self._properties  
         self.fan_speed = self._properties 
         self.powerful_mode = self._properties  
-        self.min_heat = self._properties  
-        self.outdoor_low_noise = self._properties 
+        self.min_heat = self._properties  ## TODO Missing device setting method
+        self.outdoor_low_noise = self._properties  ## TODO Missing device setting method
         self.operation_mode = self._properties 
         self.adjust_temperature = self._properties 
 
@@ -39,9 +39,23 @@ class splitAC:
         self.outdoor_low_noise = self._properties 
         self.operation_mode = self._properties 
     
-    ## todo get the last operation mode to turn it one to that using the property endpoint and "GET" method
+    ## To Turn on the device get the last operation mode using property history method
+    ## Find the last not 'OFF'/'0' O.M. 
+    ## Turn on by setting O.M. to the last O.M
     def TurnOn(self):
-        self.operation_mode = 6
+        datapoints = self._get_device_property_history(self.operation_mode['key'])
+        ## Get the latest setting before turn off
+        for datapoint in reversed(datapoints):
+            if(datapoint['datapoint']['value'] != 0):
+                last_operation_mode = int(datapoint['datapoint']['value'])
+                break
+        
+        self.operation_mode = last_operation_mode
+        self.refresh_properties()
+    
+    def turnOff(self):
+        self.operation_mode = 0
+        self.refresh_properties()
 
     ## Economy mode setting
     def economy_mode_on(self):
@@ -287,6 +301,12 @@ class splitAC:
     def device_name(self,properties):
         self._device_name = self._get_prop_from_json('device_name',properties)
         
+    ## Get a property history
+    def _get_device_property_history(self,propertyCode):
+        propertyHistory = self._api._get_device_property(propertyCode)
+        propertyHistory = propertyHistory.json()
+
+        return propertyHistory
 
     ##Translate the operation mode to descriptive values and reverse
     def _operation_mode_translate(self,operation_mode):

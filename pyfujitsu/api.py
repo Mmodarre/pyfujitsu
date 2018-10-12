@@ -60,6 +60,17 @@ class Api:
         response = self._call_api("post",API_SET_PROPERTIES_URL.format(property=propertyCode),propertyValue=value,access_token=access_token)
 
         return response
+    
+    def _get_device_property(self,propertyCode):
+        access_token = self._read_token()
+        if not self._check_token_validity(access_token):
+            access_token = self._authenticate()
+
+        response = self._call_api("get",API_SET_PROPERTIES_URL.format(property=propertyCode),access_token=access_token)
+        ## Pay Attention the response is a HTTP request response object 
+        #  and by doing .json you would get a List
+        return response
+
 
     def _check_token_validity(self,access_token=None):
         if not access_token:

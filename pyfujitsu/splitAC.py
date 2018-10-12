@@ -74,7 +74,7 @@ class splitAC:
         if isinstance(properties,(list, tuple)):
             self._operation_mode = self._get_prop_from_json('operation_mode',properties)
         elif isinstance(properties,int):
-            print(self._api._set_device_property(self.operation_mode['key'],properties))
+            self._api._set_device_property(self.operation_mode['key'],properties)
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method!!')

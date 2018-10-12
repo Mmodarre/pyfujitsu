@@ -44,7 +44,7 @@ class splitAC:
         self.operation_mode = 6
 
     def changeTemperature(self,newTemperature):
-        if not isinstance(newTemperature,int):
+        if not isinstance(newTemperature,float):
             raise Exception('Wrong usage of method')
         if newTemperature < 180:
             newTemperature = newTemperature * 10

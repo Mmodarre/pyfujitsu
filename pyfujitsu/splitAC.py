@@ -84,7 +84,10 @@ class splitAC:
         else:
             raise Exception('Wrong usage of the method!!')
 
-    @property
+    @property ##property to get temperature in degree C
+    def adjust_temperature_degree(self): return round((self._adjust_temperature['value'] /10),1)
+
+    @property ## property returns temperature dict in 10 times of degree C
     def adjust_temperature(self): return self._adjust_temperature
 
     @adjust_temperature.setter

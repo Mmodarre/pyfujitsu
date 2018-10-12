@@ -23,7 +23,7 @@ class splitAC:
         self.operation_mode = self._properties 
         self.adjust_temperature = self._properties 
 
-    ## Method for getting new(refreshing) properties
+    ## Method for getting new (refreshing) properties values
     def refresh_properties(self):
         self._properties  = self._api._get_device_properties(self._dsn)
         self.device_name = self._properties 

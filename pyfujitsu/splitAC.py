@@ -26,7 +26,7 @@ class splitAC:
     def refresh_properties(self):
         self._properties  = self._api._get_device_properties(self._dsn)
         self.device_name = self._properties 
-        self.adjust_temprature = self._properties 
+        self.adjust_temperature = self._properties 
         self.af_vertical_swing = self._properties 
         self.af_vertical_direction = self._properties 
         self.af_horizontal_swing = self._properties  
@@ -42,7 +42,7 @@ class splitAC:
     def TurnOn(self):
         self.operation_mode = 6
 
-    def changeTemprature(self,newTemperature):
+    def changeTemperature(self,newTemperature):
         self.adjust_temperature = newTemperature
 
     def changeOperationMode(self,operationMode):
@@ -84,7 +84,13 @@ class splitAC:
 
     @adjust_temperature.setter
     def adjust_temperature(self,properties):
-        self._adjust_temperature = self._get_prop_from_json('adjust_temperature',properties)
+        if isinstance(properties,(list, tuple)):
+            self._adjust_temperature = self._get_prop_from_json('adjust_temperature',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.adjust_temperature['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
 
 
     @property

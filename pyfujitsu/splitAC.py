@@ -45,7 +45,7 @@ class splitAC:
 
     def changeTemperature(self,newTemperature):
         ## set temperature for degree C
-        if not isinstance(newTemperature,int) or not isinstance(newTemperature,float):
+        if not isinstance(newTemperature,int) and not isinstance(newTemperature,float):
             raise Exception('Wrong usage of method')
         ## Fixing temps if not given as multiplies of 10 less than 180
         if newTemperature < 180:

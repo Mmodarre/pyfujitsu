@@ -135,4 +135,4 @@ class Api:
         
         response = requests.request(method, url, data=kwargs.get("json"),headers=kwargs.get("headers"))
         response.raise_for_status()
-        return respons
+        return response

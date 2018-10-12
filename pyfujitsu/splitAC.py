@@ -43,6 +43,56 @@ class splitAC:
     def TurnOn(self):
         self.operation_mode = 6
 
+    ## Economy mode setting
+    def economy_mode_on(self):
+        self.economy_mode = 1
+
+    def economy_mode_off(self):
+        self.economy_mode = 0
+
+    ## Powerfull mode setting
+    def powerfull_mode_on(self):
+        self.powerful_mode = 1
+
+    def powerfull_mode_off(self):
+        self.powerful_mode = 0
+
+    ## Fan speed setting
+
+    ## Direction Settings
+            ## Vertical
+    def vertical_swing_on(self):
+        self.af_vertical_swing = 1
+
+    def vertical_swing_off(self):
+        self.af_vertical_swing = 0
+    
+    def vertical_direction(self,newDirection):
+        if not isinstance(newDirection,int):
+            raise Exception('Wrong usage of method')
+        if newDirection > 0 and newDirection < 8:
+            self.af_vertical_direction = newDirection
+        else:
+            raise Exception('Direction out of range 1 - 7!')
+            
+            ## Horizontal
+    def horizontal_swing_on(self):
+        self.af_vertical_swing = 1
+
+    def horizontal_swing_off(self):
+        self.af_vertical_swing = 0
+
+    def horizontal_direction(self,newDirection):
+        if not isinstance(newDirection,int):
+            raise Exception('Wrong usage of method')
+        if newDirection > 0 and newDirection < 8:
+            self.af_horizontal_direction = newDirection
+        else:
+            raise Exception('Direction out of range 1 - 7!')
+    
+    
+    
+    ## Temperature setting
     def changeTemperature(self,newTemperature):
         ## set temperature for degree C
         if not isinstance(newTemperature,int) and not isinstance(newTemperature,float):
@@ -55,6 +105,7 @@ class splitAC:
         else:
             raise Exception('out of range temperature!!')
 
+    ## Operation Mode setting
     def changeOperationMode(self,operationMode):
         if not isinstance(operationMode, int):
             operationMode = self._operation_mode_translate(operationMode)
@@ -62,7 +113,7 @@ class splitAC:
         self.operation_mode = operationMode
 
     
-
+    ## Class properties:
     @property
     def dsn(self): return self._dsn
     
@@ -70,9 +121,7 @@ class splitAC:
         for property in properties:
             if property['property']['name'] == propertyName:
                 return {'value':property['property']['value'],'key':property['property']['key']}
-
     
-
     @property
     def operation_mode(self): return self._operation_mode
 
@@ -141,35 +190,65 @@ class splitAC:
 
     @af_horizontal_direction.setter
     def af_horizontal_direction(self,properties):
-        self._af_horizontal_direction = self._get_prop_from_json('af_horizontal_direction',properties)
+        
+        if isinstance(properties,(list, tuple)):
+            self._af_horizontal_direction = self._get_prop_from_json('af_horizontal_direction',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.af_horizontal_direction['key'],properties)
+            self.horizontal_swing_off() ##If direction set then swing will be turned OFF
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method or direction out of range!!')
+    
 
     @property
     def af_horizontal_swing(self): return self._af_horizontal_swing
 
     @af_horizontal_swing.setter
     def af_horizontal_swing(self,properties):
-        self._af_horizontal_swing = self._get_prop_from_json('af_horizontal_swing',properties)
+        if isinstance(properties,(list, tuple)):
+            self._af_horizontal_swing = self._get_prop_from_json('af_horizontal_swing',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.af_horizontal_swing['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
+    
     
     @property
     def af_vertical_direction(self): return self._af_vertical_direction
 
     @af_vertical_direction.setter
     def af_vertical_direction(self,properties):
-        self._af_vertical_direction = self._get_prop_from_json('af_vertical_direction',properties)
+        if isinstance(properties,(list, tuple)):
+            self._af_vertical_direction = self._get_prop_from_json('af_vertical_direction',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.af_vertical_direction['key'],properties)
+            self.vertical_swing_off() ##If direction set then swing will be turned OFF
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method or direction out of range!!')
     
+    @property
+    def af_vertical_swing(self): return self._af_vertical_swing
+
+    @af_vertical_swing.setter
+    def af_vertical_swing(self,properties):
+        if isinstance(properties,(list, tuple)):
+            self._af_vertical_swing = self._get_prop_from_json('af_vertical_swing',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.af_vertical_swing['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
+
     @property
     def device_name(self): return self._device_name
 
     @device_name.setter
     def device_name(self,properties):
         self._device_name = self._get_prop_from_json('device_name',properties)
-
-    @property
-    def af_vertical_swing(self): return self._af_vertical_swing
-
-    @af_vertical_swing.setter
-    def af_vertical_swing(self,properties):
-        self._af_vertical_swing = self._get_prop_from_json('af_vertical_swing',properties)
+        
 
     ##Translate the operation mode to descriptive values and reverse
     def _operation_mode_translate(self,operation_mode):

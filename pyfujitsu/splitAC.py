@@ -1,46 +1,42 @@
 from pyfujitsu.api import Api as api
 
 class splitAC:
-    def __init__(self,dsn,api,properties=None):
+    def __init__(self,dsn,api):
         self._dsn = dsn
         self._api = api # Setting the API object
         
         ## Calling the api class _get_device_properties to get devices properties
-        properties = self._api._get_device_properties(self._dsn)
+        self._properties = self._api._get_device_properties(self._dsn)
         
         ## self.properties: For now this variable is not used but lots of device properties which are not implemented
         ## this variable can be used to expose those properties and implement them.
-        self.properties = properties 
-        #print(type(properties))
-        self.device_name = properties
-        self.af_vertical_swing = properties
-        self.af_vertical_direction = properties
-        self.af_horizontal_swing = properties 
-        self.af_horizontal_direction = properties 
-        self.economy_mode = properties 
-        self.fan_speed = properties
-        self.powerful_mode = properties 
-        self.min_heat = properties 
-        self.outdoor_low_noise = properties
-        self.operation_mode = properties
+        self.device_name = self._properties 
+        self.af_vertical_swing = self._properties 
+        self.af_vertical_direction = self._properties 
+        self.af_horizontal_swing = self._properties  
+        self.af_horizontal_direction = self._properties  
+        self.economy_mode = self._properties  
+        self.fan_speed = self._properties 
+        self.powerful_mode = self._properties  
+        self.min_heat = self._properties  
+        self.outdoor_low_noise = self._properties 
+        self.operation_mode = self._properties 
 
-    ## Method for getting new properties
-    ## // Todo: Add the refreshing values by API call to this method
+    ## Method for getting new(refreshing) properties
     def refresh_properties(self):
-        properties = self._api._get_device_properties(self._dsn)
-        self.properties = properties
-        self.device_name = properties
-        self.adjust_temprature = properties
-        self.af_vertical_swing = properties
-        self.af_vertical_direction = properties
-        self.af_horizontal_swing = properties 
-        self.af_horizontal_direction = properties 
-        self.economy_mode = properties 
-        self.fan_speed = properties
-        self.powerful_mode = properties 
-        self.min_heat = properties 
-        self.outdoor_low_noise = properties
-        self.operation_mode = properties
+        self._properties  = self._api._get_device_properties(self._dsn)
+        self.device_name = self._properties 
+        self.adjust_temprature = self._properties 
+        self.af_vertical_swing = self._properties 
+        self.af_vertical_direction = self._properties 
+        self.af_horizontal_swing = self._properties  
+        self.af_horizontal_direction = self._properties  
+        self.economy_mode = self._properties  
+        self.fan_speed = self._properties 
+        self.powerful_mode = self._properties  
+        self.min_heat = self._properties  
+        self.outdoor_low_noise = self._properties 
+        self.operation_mode = self._properties 
     
     ## todo get the last operation mode to turn it one to that using the property endpoint and "GET" method
     def TurnOn(self):

@@ -112,3 +112,4 @@ venv.bak/
 token.txt
 test.py
 __pycache__/
+main.py

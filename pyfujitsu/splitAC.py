@@ -79,7 +79,7 @@ class splitAC:
             self._operation_mode = self._get_prop_from_json('operation_mode',properties)
         elif isinstance(properties,int):
             print(self._api._set_device_property(self.operation_mode['key'],properties))
-            self._operation_mode['value'] =  properties
+            self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method!!')
 
@@ -174,8 +174,4 @@ class splitAC:
         }
         return DICT_OPERATION_MODE[operation_mode]
          
-      
-print(living.device_name['value'])
-print(living.operation_mode_desc)
-living.changeOperationMode('OFF')
-print(living.operation_mode_desc)
+

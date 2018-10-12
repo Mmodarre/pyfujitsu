@@ -58,7 +58,19 @@ class splitAC:
         self.powerful_mode = 0
 
     ## Fan speed setting
-
+    ## Quiet Low Medium High Auto
+    def fan_speed_quiet(self):
+            self.fan_speed = 0
+    def fan_speed_low(self):
+            self.fan_speed = 1
+    def fan_speed_medium(self):
+            self.fan_speed = 2
+    def fan_speed_high(self):
+            self.fan_speed = 3
+    def fan_speed_auto(self):
+            self.fan_speed = 4
+    
+            
     ## Direction Settings
             ## Vertical
     def vertical_swing_on(self):

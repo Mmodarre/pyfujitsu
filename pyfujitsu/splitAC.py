@@ -1,4 +1,4 @@
-from api import Api as api
+from pyfujitsu.api import Api as api
 
 class splitAC:
     def __init__(self,dsn,api,properties=None):

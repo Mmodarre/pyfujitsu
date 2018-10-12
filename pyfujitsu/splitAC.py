@@ -43,10 +43,10 @@ class splitAC:
     def TurnOn(self):
         self.operation_mode = 6
 
-    def changeTemperature(self,newTemperature:float):
+    def changeTemperature(self,newTemperature):
         ## set temperature for degree C
-        #if not isinstance(newTemperature,int) and not isinstance(newTemperature,float):
-        #    raise Exception('Wrong usage of method')
+        if not isinstance(newTemperature,int) and not isinstance(newTemperature,float):
+            raise Exception('Wrong usage of method')
         ## Fixing temps if not given as multiplies of 10 less than 180
         if newTemperature < 180:
             newTemperature = newTemperature * 10
@@ -99,7 +99,7 @@ class splitAC:
     def adjust_temperature(self,properties):
         if isinstance(properties,(list, tuple)):
             self._adjust_temperature = self._get_prop_from_json('adjust_temperature',properties)
-        elif isinstance(properties,int):
+        elif isinstance(properties,int) or isinstance(properties,float):
             self._api._set_device_property(self.adjust_temperature['key'],properties)
             self.refresh_properties()
         else:

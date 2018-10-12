@@ -160,7 +160,13 @@ class splitAC:
 
     @outdoor_low_noise.setter
     def outdoor_low_noise(self,properties):
-        self._outdoor_low_noise = self._get_prop_from_json('outdoor_low_noise',properties)
+        if isinstance(properties,(list, tuple)):
+            self._outdoor_low_noise = self._get_prop_from_json('outdoor_low_noise',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.outdoor_low_noise['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
 
 
     @property
@@ -168,14 +174,27 @@ class splitAC:
 
     @powerful_mode.setter
     def powerful_mode(self,properties):
-        self._powerful_mode = self._get_prop_from_json('powerful_mode',properties)
+        if isinstance(properties,(list, tuple)):
+            self._powerful_mode = self._get_prop_from_json('powerful_mode',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.powerful_mode['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
 
     @property
     def fan_speed(self): return self._fan_speed
 
     @fan_speed.setter
     def fan_speed(self,properties):
-        self._fan_speed = self._get_prop_from_json('fan_speed',properties)
+        if isinstance(properties,(list, tuple)):
+            self._fan_speed = self._get_prop_from_json('fan_speed',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.fan_speed['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
+
 
     
     @property
@@ -183,7 +202,14 @@ class splitAC:
 
     @economy_mode.setter
     def economy_mode(self,properties):
-        self._economy_mode = self._get_prop_from_json('economy_mode',properties)
+        if isinstance(properties,(list, tuple)):
+            self._economy_mode = self._get_prop_from_json('economy_mode',properties)
+        elif isinstance(properties,int):
+            self._api._set_device_property(self.economy_mode['key'],properties)
+            self.refresh_properties()
+        else:
+            raise Exception('Wrong usage of the method!!')
+
 
     @property
     def af_horizontal_direction(self): return self._af_horizontal_direction

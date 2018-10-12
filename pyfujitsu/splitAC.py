@@ -21,6 +21,7 @@ class splitAC:
         self.min_heat = self._properties  
         self.outdoor_low_noise = self._properties 
         self.operation_mode = self._properties 
+        self.adjust_temperature = self._properties 
 
     ## Method for getting new(refreshing) properties
     def refresh_properties(self):

@@ -13,7 +13,7 @@ setuptools.setup(
     #long_description_content_type="text/markdown",
     url="https://github.com/Mmodarre/pyfujitsu",
     packages=setuptools.find_packages(),
-    install_requires=['requests','certifi','chardet','idna','urllib3'],
+    install_requires=['requests','certifi','chardet','idna','urllib3'] ,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

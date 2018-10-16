@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pyfujistsu",
+    name="pyfujitsu",
     version="0.8.1",
     author="Mehdi Modarressi",
     author_email="Luckposht@gmail.com",

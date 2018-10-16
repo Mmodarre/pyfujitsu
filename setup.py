@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyfujistsu",
-    version="0.7.0",
+    version="0.8.1",
     author="Mehdi Modarressi",
     author_email="Luckposht@gmail.com",
     description="Python library to control Fujitsu General Airconditioners on AylaNetworks IoT platform",

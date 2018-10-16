@@ -1,4 +1,4 @@
-from pyfujitsu.api import Api as api
+from homeassistant.components.pyfujitsu.api import Api as api
 
 class splitAC:
     def __init__(self,dsn,api):
@@ -73,6 +73,24 @@ class splitAC:
 
     ## Fan speed setting
     ## Quiet Low Medium High Auto
+    def changeFanSpeed(self, speed):
+        print(speed)
+        if speed.upper() == 'QUIET':
+            self.fan_speed_quiet()
+            return None
+        if speed.upper() == 'LOW':
+            self.fan_speed_low()
+            return None
+        if speed.upper() == 'MEDIUM':
+            self.fan_speed_medium()
+            return None
+        if speed.upper() == 'HIGH':
+            self.fan_speed_high()
+            return None
+        if speed.upper() == 'AUTO':
+            self.fan_speed_auto()
+            return None
+
     def fan_speed_quiet(self):
             self.fan_speed = 0
     def fan_speed_low(self):
@@ -84,7 +102,17 @@ class splitAC:
     def fan_speed_auto(self):
             self.fan_speed = 4
     
-            
+    def get_fan_speed_desc(self):
+        FAN_SPEED_DICT = {
+            0 : 'Quiet',
+            1 : 'Low',
+            2 : 'Medium',
+            3 : 'High',
+            4 : 'Auto'
+        }
+        return FAN_SPEED_DICT[self.fan_speed['value']]
+
+
     ## Direction Settings
             ## Vertical
     def vertical_swing_on(self):
@@ -134,8 +162,7 @@ class splitAC:
     ## Operation Mode setting
     def changeOperationMode(self,operationMode):
         if not isinstance(operationMode, int):
-            operationMode = self._operation_mode_translate(operationMode)
-            #print(operationMode)
+            operationMode = self._operation_mode_translate(operationMode.upper())
         self.operation_mode = operationMode
 
     
@@ -152,7 +179,7 @@ class splitAC:
     def operation_mode(self): return self._operation_mode
 
     @property
-    def operation_mode_desc(self): return self._operation_mode_translate(self.operation_mode['value'])
+    def operation_mode_desc(self): return self._operation_mode_translate(self.operation_mode['value']).capitalize()
 
     @operation_mode.setter
     def operation_mode(self,properties):
@@ -325,5 +352,3 @@ class splitAC:
             6 : "HEAT"
         }
         return DICT_OPERATION_MODE[operation_mode]
-         
-

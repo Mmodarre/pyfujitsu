@@ -36,13 +36,21 @@ class Api:
         self._ACCESS_TOKEN_FILE = 'token.txt'
     
     def _get_devices(self,access_token=None):
-      if not self._check_token_validity(access_token):
-          ## Token invalid requesting authentication
-          access_token = self._authenticate()
-          
+        if not self._check_token_validity(access_token):
 
-      response = self._call_api("get",API_GET_DEVICES_URL,access_token=access_token)
-      return response.json()
+          ## Token invalid requesting authentication
+            access_token = self._authenticate()
+        response = self._call_api("get",API_GET_DEVICES_URL,access_token=access_token)
+        return response.json()
+
+    def get_devices_dsn(self, access_token=None):
+        devices = self._get_devices()
+        devices_dsn = []
+        for device in devices:
+            devices_dsn.append(device['device']['dsn'])
+        return devices_dsn
+
+
       
     def _get_device_properties(self,dsn):
         access_token = self._read_token()

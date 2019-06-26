@@ -1,4 +1,4 @@
-from homeassistant.components.pyfujitsu.api import Api as api
+from api import Api as api
 
 class splitAC:
     def __init__(self,dsn,api):

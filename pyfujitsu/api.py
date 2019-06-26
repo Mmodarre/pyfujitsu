@@ -7,14 +7,19 @@ import json
 HEADER_CONTENT_TYPE = "Content-Type"
 HEADER_VALUE_CONTENT_TYPE = "application/json"
 HEADER_AUTHORIZATION = "Authorization"
-SIGNIN_BODY = "{\r\n    \"user\": {\r\n        \"email\": \"%s\",\r\n        \"application\": {\r\n            \"app_id\": \"CJIOSP-id\",\r\n            \"app_secret\": \"CJIOSP-Vb8MQL_lFiYQ7DKjN0eCFXznKZE\"\r\n        },\r\n        \"password\": \"%s\"\r\n    }\r\n}"
-API_BASE_URL = "https://ads-field.aylanetworks.com/apiv1/"
-API_GET_ACCESS_TOKEN_URL = "https://user-field.aylanetworks.com/users/sign_in.json"
+#SIGNIN_BODY = "{\r\n    \"user\": {\r\n        \"email\": \"%s\",\r\n        \"application\": {\r\n            \"app_id\": \"CJIOSP-id\",\r\n            \"app_secret\": \"CJIOSP-Vb8MQL_lFiYQ7DKjN0eCFXznKZE\"\r\n        },\r\n        \"password\": \"%s\"\r\n    }\r\n}"
+SIGNIN_BODY = '{"user":{"email":"%s","password":"%s","application":{"app_id":"FGLair-eu-id","app_secret":"FGLair-eu-gpFbVBRoiJ8E3QWJ-QRULLL3j3U"}}}'
+#API_BASE_URL = "https://ads-field.aylanetworks.com/apiv1/"
+#API_GET_ACCESS_TOKEN_URL = "https://user-field.aylanetworks.com/users/sign_in.json"
+API_BASE_URL = "https://ads-field-eu.aylanetworks.com/apiv1/"
+API_GET_ACCESS_TOKEN_URL = "https://user-field-eu.aylanetworks.com/users/sign_in.json"
 
 API_GET_DEVICES_URL =  API_BASE_URL + "devices.json"
 API_GET_PROPERTIES_URL = API_BASE_URL + "/dsns/{DSN}/properties.json"
 API_SET_PROPERTIES_URL = API_BASE_URL + "/properties/{property}/datapoints.json"
-ACCESS_TOKEN_FILE = 'token.txt'
+#ACCESS_TOKEN_FILE = 'token.txt'
+ACCESS_TOKEN_FILE = '/home/homeassistant/token.txt'
+
 
 _LOGGER = logging.getLogger(__name__)
 

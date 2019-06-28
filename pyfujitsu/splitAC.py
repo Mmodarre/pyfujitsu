@@ -154,7 +154,7 @@ class splitAC:
         ## Fixing temps if not given as multiplies of 10 less than 180
         if newTemperature < 180:
             newTemperature = newTemperature * 10
-        if (newTemperature > 180 and newTemperature < 320):
+        if (newTemperature >= 180 and newTemperature <= 320):
             self.adjust_temperature = newTemperature
         else:
             raise Exception('out of range temperature!!')

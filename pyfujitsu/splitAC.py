@@ -111,7 +111,24 @@ class splitAC:
             4 : 'Auto'
         }
         return FAN_SPEED_DICT[self.fan_speed['value']]
-
+    
+    ## Fan Swing mode
+    ## 0: 'Horizontal',1: 'Down', 2: 'Unknown', 3: 'Swing' 
+    def changeSwingMode(self, mode):
+        print(mode)
+        if mode.upper() == 'HORIZONTAL':
+            self.af_vertical_direction = 0
+            return None
+        if mode.upper() == 'DOWN':
+            self.af_vertical_direction = 1
+            return None
+        if mode.upper() == 'UNKNOWN':
+            self.af_vertical_direction = 2
+            return None
+        if mode.upper() == 'SWING':
+            self.af_vertical_direction = 3
+            return None
+    
     def get_swing_mode_desc(self):
         SWING_LIST_DICT = {
             0: 'Horizontal',

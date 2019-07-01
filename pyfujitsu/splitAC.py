@@ -112,6 +112,14 @@ class splitAC:
         }
         return FAN_SPEED_DICT[self.fan_speed['value']]
 
+    def get_swing_mode_desc(self):
+        SWING_LIST_DICT = {
+            0: 'Horizontal',
+            1: 'Down', 
+            2: 'Unknown', 
+            3: 'Swing' 
+        }
+        return SWING_LIST_DICT[self.af_vertical_direction['value']]
 
     ## Direction Settings
             ## Vertical
@@ -292,18 +300,18 @@ class splitAC:
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method!!')
-    
-    
+         
+
     @property
     def af_vertical_direction(self): return self._af_vertical_direction
 
     @af_vertical_direction.setter
     def af_vertical_direction(self,properties):
         if isinstance(properties,(list, tuple)):
-            self._af_vertical_direction = self._get_prop_from_json('af_vertical_direction',properties)
+            self._af_vertical_direction = self._get_prop_from_json('af_vertical_move_step1',properties)
         elif isinstance(properties,int):
             self._api._set_device_property(self.af_vertical_direction['key'],properties)
-            self.vertical_swing_off() ##If direction set then swing will be turned OFF
+            #self.vertical_swing_off() ##If direction set then swing will be turned OFF
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method or direction out of range!!')

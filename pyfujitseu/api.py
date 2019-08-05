@@ -34,9 +34,10 @@ def _api_headers(access_token=None):
     return headers
 
 class Api:
-    def __init__(self,username,password):
+    def __init__(self,username,password,region):
         self.username = username
         self.password = password
+        self.region = region
         #self._authenticate()
         self._ACCESS_TOKEN_FILE = 'token.txt'
     
@@ -54,8 +55,6 @@ class Api:
         for device in devices:
             devices_dsn.append(device['device']['dsn'])
         return devices_dsn
-
-
       
     def _get_device_properties(self,dsn):
         access_token = self._read_token()

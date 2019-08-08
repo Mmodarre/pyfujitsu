@@ -272,8 +272,7 @@ class splitAC:
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method!!')
-
-
+            
     
     @property
     def economy_mode(self): return self._economy_mode

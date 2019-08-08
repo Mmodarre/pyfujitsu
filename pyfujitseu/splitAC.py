@@ -187,7 +187,7 @@ class splitAC:
     ## Operation Mode setting
     def changeOperationMode(self,operationMode):
         if not isinstance(operationMode, int):
-            operationMode = self._operation_mode_translate(operationMode.upper())
+            operationMode = self._operation_mode_translate(operationMode)
         self.operation_mode = operationMode
 
     
@@ -204,7 +204,7 @@ class splitAC:
     def operation_mode(self): return self._operation_mode
 
     @property
-    def operation_mode_desc(self): return self._operation_mode_translate(self.operation_mode['value']).capitalize()
+    def operation_mode_desc(self): return self._operation_mode_translate(self.operation_mode['value'])
 
     @operation_mode.setter
     def operation_mode(self,properties):
@@ -363,17 +363,17 @@ class splitAC:
     ##Translate the operation mode to descriptive values and reverse
     def _operation_mode_translate(self,operation_mode):
         DICT_OPERATION_MODE = {
-            "OFF": 0,
-            "AUTO" : 2,
-            "COOL" : 3,
-            "DRY" : 4,
-            "FAN" : 5,
-            "HEAT" : 6,
-            0 : "OFF",
-            2 : "AUTO",
-            3 : "COOL",
-            4 : "DRY",
-            5 : "FAN",
-            6 : "HEAT"
+            "off": 0,
+            "auto" : 2,
+            "cool" : 3,
+            "dry" : 4,
+            "fan_only" : 5,
+            "heat" : 6,
+            0 : "off",
+            2 : "auto",
+            3 : "cool",
+            4 : "dry",
+            5 : "fan_only",
+            6 : "heat"
         }
         return DICT_OPERATION_MODE[operation_mode]

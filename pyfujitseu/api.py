@@ -33,12 +33,12 @@ class Api:
             API_BASE_URL = "https://ads-field-eu.aylanetworks.com/apiv1/"
         elif region == 'cn':
             self._SIGNIN_BODY = '{"user":{"email":"%s","password":"%s","application":{"app_id":"FGLairField-cn-id","app_secret":"FGLairField-cn-zezg7Y60YpAvy3HPwxvWLnd4Oh4"}}}'
-            self._API_GET_ACCESS_TOKEN_URL = "https://user-field-eu.aylanetworks.com/users/sign_in.json"
-            API_BASE_URL = "https://ads-field-eu.aylanetworks.com/apiv1/"
-        else:
-            self._SIGNIN_BODY = "{\r\n    \"user\": {\r\n        \"email\": \"%s\",\r\n        \"application\": {\r\n            \"app_id\": \"CJIOSP-id\",\r\n            \"app_secret\": \"CJIOSP-Vb8MQL_lFiYQ7DKjN0eCFXznKZE\"\r\n        },\r\n        \"password\": \"%s\"\r\n    }\r\n}"
             self._API_GET_ACCESS_TOKEN_URL = "https://user-field.ayla.com.cn/users/sign_in.json"
             API_BASE_URL = "https://ads-field.ayla.com.cn/apiv1/"
+        else:
+            self._SIGNIN_BODY = "{\r\n    \"user\": {\r\n        \"email\": \"%s\",\r\n        \"application\": {\r\n            \"app_id\": \"CJIOSP-id\",\r\n            \"app_secret\": \"CJIOSP-Vb8MQL_lFiYQ7DKjN0eCFXznKZE\"\r\n        },\r\n        \"password\": \"%s\"\r\n    }\r\n}"
+            self._API_GET_ACCESS_TOKEN_URL = "https://user-field.aylanetworks.com/users/sign_in.json"
+            API_BASE_URL = "https://ads-field.aylanetworks.com/apiv1/"
         
         self._API_GET_PROPERTIES_URL = API_BASE_URL + "dsns/{DSN}/properties.json"
         self._API_SET_PROPERTIES_URL = API_BASE_URL + "properties/{property}/datapoints.json"

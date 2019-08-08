@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pyfujitsu",
-    version="0.9.2.4",
+    name="pyfujitseu",
+    version="0.9.2.5",
     author="Mehdi Modarressi",
     author_email="Luckposht@gmail.com",
     description="Python library to control Fujitsu General Airconditioners on AylaNetworks IoT platform",

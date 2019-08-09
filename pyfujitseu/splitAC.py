@@ -1,5 +1,7 @@
 from .api import Api as api
 
+#version 0.9.2.7
+
 class splitAC:
     def __init__(self,dsn,api):
         self._dsn = dsn

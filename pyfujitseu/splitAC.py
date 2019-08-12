@@ -132,6 +132,8 @@ class splitAC:
             return None
     
     def get_swing_mode_desc(self):
+        if not isinstance(self.af_vertical_direction['value'],int):
+            return None
         SWING_LIST_DICT = {
             0: 'Horizontal',
             1: 'Down', 

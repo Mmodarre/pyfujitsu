@@ -118,10 +118,6 @@ class splitAC:
     ## 0: 'Horizontal',1: 'Down', 2: 'Unknown', 3: 'Swing' 
     def changeSwingMode(self, mode):
         print(mode)
-        if self.af_vertical_direction['value'] is not None:
-            return SWING_LIST_DICT[2] #unknown
-        elif not isinstance(self.af_vertical_direction['value'],int):
-            return SWING_LIST_DICT[2]  #unknown
         if mode.upper() == 'HORIZONTAL':
             self.af_vertical_direction = 0
             return None
@@ -142,12 +138,11 @@ class splitAC:
             2: 'Unknown', 
             3: 'Swing' 
         }
-        if self.af_vertical_direction['value'] is not None:
-            return SWING_LIST_DICT[2] #unknown
-        elif not isinstance(self.af_vertical_direction['value'],int):
-            return SWING_LIST_DICT[2]  #unknown
-        else:
+        try:
             return SWING_LIST_DICT[self.af_vertical_direction['value']]
+        except TypeError:
+            return SWING_LIST_DICT[2]
+        
 
     ## Direction Settings
             ## Vertical

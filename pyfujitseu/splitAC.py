@@ -1,4 +1,6 @@
-from homeassistant.components.pyfujitsu.api import Api as api
+from .api import Api as api
+
+#version 0.9.2.7
 
 class splitAC:
     def __init__(self,dsn,api):
@@ -111,7 +113,36 @@ class splitAC:
             4 : 'Auto'
         }
         return FAN_SPEED_DICT[self.fan_speed['value']]
-
+    
+    ## Fan Swing mode
+    ## 0: 'Horizontal',1: 'Down', 2: 'Unknown', 3: 'Swing' 
+    def changeSwingMode(self, mode):
+        print(mode)
+        if mode.upper() == 'HORIZONTAL':
+            self.af_vertical_direction = 0
+            return None
+        if mode.upper() == 'DOWN':
+            self.af_vertical_direction = 1
+            return None
+        if mode.upper() == 'UNKNOWN':
+            self.af_vertical_direction = 2
+            return None
+        if mode.upper() == 'SWING':
+            self.af_vertical_direction = 3
+            return None
+    
+    def get_swing_mode_desc(self):
+        SWING_LIST_DICT = {
+            0: 'Horizontal',
+            1: 'Down', 
+            2: 'Unknown', 
+            3: 'Swing' 
+        }
+        try:
+            return SWING_LIST_DICT[self.af_vertical_direction['value']]
+        except TypeError:
+            return SWING_LIST_DICT[2]
+        
 
     ## Direction Settings
             ## Vertical
@@ -154,7 +185,7 @@ class splitAC:
         ## Fixing temps if not given as multiplies of 10 less than 180
         if newTemperature < 180:
             newTemperature = newTemperature * 10
-        if (newTemperature > 180 and newTemperature < 320):
+        if (newTemperature >= 180 and newTemperature <= 320):
             self.adjust_temperature = newTemperature
         else:
             raise Exception('out of range temperature!!')
@@ -162,7 +193,7 @@ class splitAC:
     ## Operation Mode setting
     def changeOperationMode(self,operationMode):
         if not isinstance(operationMode, int):
-            operationMode = self._operation_mode_translate(operationMode.upper())
+            operationMode = self._operation_mode_translate(operationMode)
         self.operation_mode = operationMode
 
     
@@ -179,7 +210,7 @@ class splitAC:
     def operation_mode(self): return self._operation_mode
 
     @property
-    def operation_mode_desc(self): return self._operation_mode_translate(self.operation_mode['value']).capitalize()
+    def operation_mode_desc(self): return self._operation_mode_translate(self.operation_mode['value'])
 
     @operation_mode.setter
     def operation_mode(self,properties):
@@ -247,8 +278,7 @@ class splitAC:
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method!!')
-
-
+            
     
     @property
     def economy_mode(self): return self._economy_mode
@@ -292,18 +322,18 @@ class splitAC:
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method!!')
-    
-    
+         
+
     @property
     def af_vertical_direction(self): return self._af_vertical_direction
 
     @af_vertical_direction.setter
     def af_vertical_direction(self,properties):
         if isinstance(properties,(list, tuple)):
-            self._af_vertical_direction = self._get_prop_from_json('af_vertical_direction',properties)
+            self._af_vertical_direction = self._get_prop_from_json('af_vertical_move_step1',properties)
         elif isinstance(properties,int):
             self._api._set_device_property(self.af_vertical_direction['key'],properties)
-            self.vertical_swing_off() ##If direction set then swing will be turned OFF
+            #self.vertical_swing_off() ##If direction set then swing will be turned OFF
             self.refresh_properties()
         else:
             raise Exception('Wrong usage of the method or direction out of range!!')
@@ -338,17 +368,17 @@ class splitAC:
     ##Translate the operation mode to descriptive values and reverse
     def _operation_mode_translate(self,operation_mode):
         DICT_OPERATION_MODE = {
-            "OFF": 0,
-            "AUTO" : 2,
-            "COOL" : 3,
-            "DRY" : 4,
-            "FAN" : 5,
-            "HEAT" : 6,
-            0 : "OFF",
-            2 : "AUTO",
-            3 : "COOL",
-            4 : "DRY",
-            5 : "FAN",
-            6 : "HEAT"
+            "off": 0,
+            "auto" : 2,
+            "cool" : 3,
+            "dry" : 4,
+            "fan_only" : 5,
+            "heat" : 6,
+            0 : "off",
+            2 : "auto",
+            3 : "cool",
+            4 : "dry",
+            5 : "fan_only",
+            6 : "heat"
         }
         return DICT_OPERATION_MODE[operation_mode]
